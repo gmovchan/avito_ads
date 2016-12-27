@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Добавить объявление</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+
+    <div class="container">
+      <div class="row text-center">
+        <h2>Объявление</h2>
+      </div>
+
+      <form id="form_ad" class="form-horizontal" action="./php/add_ad.php" method="post">
+
+        <div class="form-group">
+          <label for="" class="col-sm-3 control-label">Дата</label>
+          <div class="col-sm-5">
+            <p class="form-control-static" id="updatedTime"></p>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="" class="col-sm-3 control-label">Порядковый номер</label>
+          <div class="col-sm-5">
+            <p class="form-control-static"><span id="max_number"></span></p>
+          </div>
+        </div>
+
+        <div class="form-group" id="avito_id_div">
+          <label for="" class="col-sm-3 control-label">ID на авито</label>
+          <div class="col-sm-5">
+            <input type="text" value="" name="id_avito" class=" form-control"
+            id="id_for_send" readonly >
+            <span class="help-block" id="help_block_for_id">Вставьте ссылку в поле ниже</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="" class="col-sm-3 control-label">Ссылка</label>
+          <div class="col-sm-5">
+            <input id="link" type="text" class="form-control" name="link" value="" placeholder="текст">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="" class="col-sm-3 control-label">Заголовок</label>
+          <div class="col-sm-5">
+            <input type="text" class="form-control" name="header" value="" placeholder="текст">
+          </div>
+        </div>
+
+
+        <div class="form-group">
+          <label for="" class="col-sm-3 control-label">Цена</label>
+          <div class="col-sm-5">
+            <div class="radio">
+              <label>
+                <input type="radio" name="price" value="0" checked id="radio_price_text">
+                <input  name="price" type="number" class="form-control" name=""
+                placeholder="0" id="price_text">
+              </label>
+              <br>
+              <label>
+                <input type="radio" name="price" value="negotiated_price" id="negotiated_price">Цена договорная
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group" id="organization_div">
+          <label for="" class="col-sm-3 control-label">Название фирмы</label>
+          <div class="col-sm-5">
+            <input type="text" class="form-control" name="" value=""
+            placeholder="текст" id="organization_send">
+            <span class="help-block" id="help_block_for_organization"></span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="" class="col-sm-3 control-label">Имя</label>
+          <div class="col-sm-5">
+            <input type="text" class="form-control" name="name" value="" placeholder="текст">
+          </div>
+        </div>
+
+        <div class="form-group" id="telephone_number_div">
+          <label for="" class="col-sm-3 control-label">Телефонный номер</label>
+          <div class="col-sm-5">
+            <input type="number" class="form-control" name="telephone_number" value=""
+            placeholder="" id="telephone_number_send">
+            <span class="help-block" id="help_block_for_telephone_number"></span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="" class="col-sm-3 control-label">Район Краснодара</label>
+          <div class="col-sm-5">
+            <select class="form-control" name="address">
+              <option value="">По всей России</option>
+              <option value="">Краснодарский край</option>
+              <option value="" disabled>--ГОРОДА--</option>
+              <option value="1">Краснодар</option> <!--
+              <option value="2">Краснодарский край</option>
+              <option value="3">Западный</option>
+              <option value="4">Карасунский</option>
+              <option value="5">Прикубанский</option>
+              <option value="6">Старокорсунская</option>
+              <option value="7">Центральный</option> -->
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="" class="col-sm-3 control-label">Текст объявления</label>
+          <div class="col-sm-8">
+            <textarea class="form-control" rows="5" name="text_ad"></textarea>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="" class="col-sm-3 control-label">Отправил письмо</label>
+          <div class="col-sm-5">
+
+            <div class="radio">
+              <label>
+                <input type="radio" name="message" value="yes" checked> да
+              </label>
+              <br>
+              <label>
+                <input type="radio" name="message" value="no"> нет
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div for="" class="col-sm-3">
+          </div>
+          <div class="col-sm-5">
+            <button type="submit" class="btn btn-primary" name="button">Добавить</button>
+          </div>
+        </div>
+
+      </form>
+    </div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/script_add_ad.js"></script>
+  </body>
+</html>

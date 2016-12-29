@@ -94,21 +94,23 @@ $(document).ready(function () {
             block = '#avito_id_div';
             block_help = '#help_block_for_id';
             message_success = 'Это новое объявление';
-            message_error = 'Данное объявление уже добавлено';
+            message_error = 'Данное объявление уже добавлено под номером '+json.number;
             break;
 
           case 'organization':
             block = '#organization_div';
             block_help = '#help_block_for_organization';
             message_success = 'Новая организация';
-            message_error = 'Уже есть объявление(я) с этой организацией';
+            message_error = 'С этой организацией уже есть объявление под номером '
+            +json.number;
             break;
 
           case 'telephone_number':
             block = '#telephone_number_div';
             block_help = '#help_block_for_telephone_number';
             message_success = 'Новый телефонный номер';
-            message_error = 'Уже есть объявление(я) с этим телефонным номером';
+            message_error = 'С этим телефонным номером уже есть объявление под номером '
+            +json.number;
             break;
 
           default:

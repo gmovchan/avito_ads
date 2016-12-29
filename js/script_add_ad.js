@@ -1,4 +1,6 @@
 $(document).ready(function () {
+  $("#telephone_number_send").mask("+7(999) 999-9999");
+
   $('#help_block_for_telephone_number').hide();
   $('#help_block_for_organization').hide();
 
@@ -126,7 +128,14 @@ $(document).ready(function () {
   }
 
   function get_max_number() {
-    $("#max_number").load("php/max_number.php");
+    $.ajax({
+      url: "./php/max_number.php",
+      cache: false,
+      dataType: "json",
+      success: function (json) {
+        $('#max_number').val(json.number);
+      }
+    });
   }
 
   function check_telephone_number() {

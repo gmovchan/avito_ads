@@ -32,5 +32,10 @@
   $mysqli->close();
 
   $max = $result->fetch_assoc();
-  echo $max['max'] + 1;
+
+//  echo $max['max'] + 1;
+
+  $number = $max['max'] + 1;
+
+  echo json_encode(array('number' => $number));
 ?>

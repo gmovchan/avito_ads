@@ -36,7 +36,8 @@
         <div class="form-group">
           <label for="" class="col-sm-3 control-label">Порядковый номер</label>
           <div class="col-sm-5">
-            <p class="form-control-static"><span id="max_number"></span></p>
+            <input type="text" value="" name="number" class=" form-control"
+            id="max_number" readonly >
           </div>
         </div>
 
@@ -84,7 +85,7 @@
         <div class="form-group" id="organization_div">
           <label for="" class="col-sm-3 control-label">Название фирмы</label>
           <div class="col-sm-5">
-            <input type="text" class="form-control" name="" value=""
+            <input type="text" class="form-control" name="organization" value=""
             placeholder="текст" id="organization_send">
             <span class="help-block" id="help_block_for_organization"></span>
           </div>
@@ -100,7 +101,7 @@
         <div class="form-group" id="telephone_number_div">
           <label for="" class="col-sm-3 control-label">Телефонный номер</label>
           <div class="col-sm-5">
-            <input type="number" class="form-control" name="telephone_number" value=""
+            <input class="form-control" name="telephone_number" value=""
             placeholder="" id="telephone_number_send">
             <span class="help-block" id="help_block_for_telephone_number"></span>
           </div>
@@ -160,6 +161,7 @@
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="js/jquery.maskedinput.js" type="text/javascript"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
     <script src="js/script_add_ad.js"></script>

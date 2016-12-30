@@ -3,9 +3,6 @@
   header("Content-Type: text/html; charset=utf-8");
   date_default_timezone_set("Europe/Moscow");
 
-
-
-
   if ($_GET['action']) {
     require_once("./config.php");
     $mysqli = new mysqli($host, $user, $password, $db);
@@ -15,13 +12,13 @@
       sql_error();
     }
 
-    //принудительно установил кодировку UTF-8 потому что скрипт почему-то отдавал
-    //строки для БД в кодировке СР-1251
+    /*принудительно установил кодировку UTF-8 потому что скрипт почему-то отдавал
+    строки для БД в кодировке СР-1251*/
     if (!$mysqli->set_charset("utf8")) {
-        printf("Ошибка при загрузке набора символов utf8: %s\n", $mysqli->error);
+        /*printf("Ошибка при загрузке набора символов utf8: %s\n", $mysqli->error);*/
         $mysqli->close();
     } else {
-        printf("Текущий набор символов: %s\n", $mysqli->character_set_name());
+        /*printf("Текущий набор символов: %s\n", $mysqli->character_set_name());*/
     }
   } else {
     exit('Ошибка. Необходимо передать тип действия в ссылке. ?action=create/parse');
@@ -50,17 +47,18 @@
 
     $date = date("d.m.Y");
 
+    $count_update = $count_insert = 0;
+
     while (($data = fgetcsv($handle, 0, ",")) !== FALSE) {
       $number = $data[1];
       $id_avito = $data[2];
 
 
-      //не все строки являются объявлениеми, поэтому пропускаю те, где не стоит артикул
+      /*не все строки являются объявлениеми, поэтому пропускаю те, где не стоит артикул*/
       if (is_numeric($number) && $id_avito) {
 
         $link = $data[3];
         $header = $data[4];
-        echo mb_detect_encoding($header);
         $price = $data[5];
         $organization = $data[6];
         $name = $data[7];
@@ -69,8 +67,8 @@
         $message = $data[10];
         $text_ad = $data[11];
 
-        //не у каждой позиции проставлена дата, потому что в оригинальной таблице есть
-        //объединенные ячейки с датой
+        /*не у каждой позиции проставлена дата, потому что в оригинальной таблице есть
+        объединенные ячейки с датой*/
         if ($data[0]) {
           $date = $data[0];
         }
@@ -93,7 +91,7 @@
               echo "Извините, возникла проблема в работе сайта.";
               sql_error();
           } else {
-            echo "В БД добавлена позиция номер: ".$number."<br>";
+            $count_insert++;
           }
         } else {
           $sql = "UPDATE ads SET `id_avito` = '$id_avito', `link` = '$link', `header` = '$header',
@@ -108,11 +106,12 @@
               echo "Запрос: " . $sql . "<br>";
               sql_error();
           } else {
-            echo "В БД обновлена позиция номер: ".$number."<br>";
+            $count_update++;
           }
         }
       }
     }
+    echo "Добавлено новых позиций: ".$count_insert."<br>Обновлено старых позиций: ".$count_update;
     $mysqli->close();
   }
 
@@ -124,10 +123,14 @@
 
   function startCreate($mysqli) {
 
+    echo "Начинается генерация нового документа<br>";
+
     $headers_csv = array('Дата','№','№ объявления','Ссылка','Заголовок','Цена',
   'Название фирмы','Имя','Телефон','Адрес','ПИСЬМО да/нет','Текст');
 
-    $handle = fopen('../files/avito_ads_from_db.csv', 'w');
+    $file = '../files/avito_ads_from_db.csv';
+
+    $handle = fopen($file, 'w');
 
     $sql = "SELECT `date`, `number`, `id_avito`, `link`, `header`, `price`, `organization`,
      `name`, `telephone_number`, `address`, `message`, `text_ad` FROM `ads`";
@@ -149,28 +152,42 @@
   foreach ($avito_ads_from_db as $key => $value) {
 
     foreach ($value as $key1 => $value1) {
-//      print_r($avito_ads_from_db[$key][$key1]);
+
       $avito_ads_from_db[$key][$key1] = iconv('UTF-8', 'CP1251', $avito_ads_from_db[$key][$key1]);
       $value1 = 0;
-//      print_r($value1);
-
     }
-//      $value[$key] = iconv('UTF-8', 'CP1251', $value);
   }
-
-    print_r($avito_ads_from_db);
 
     foreach ($avito_ads_from_db as $key) {
       fputcsv ($handle, $key);
     }
 
     fclose($handle);
-/*
-    $handle = fopen('php://memory', 'w+');
-    fwrite($handle, iconv('UTF-8', 'CP1251', file_get_contents('../files/avito_ads_from_db.csv')));
-    rewind($handle);
-*/
+
+    echo "Документ создан<br>";
+
     $mysqli->close();
+    download_file_csv($file);
+  }
+
+  function download_file_csv($file) {
+    echo "Начинается скачивание файла...<br>";
+    if (file_exists($file)) {
+      if (ob_get_level()) {
+        ob_end_clean();
+      }
+      header('Content-Description: File Transfer');
+      header('Content-Type: text/csv');
+      header('Content-Disposition: attachment; filename='.basename($file));
+      header('Content-Transfer-Encoding: binary');
+      header('Expires: 0');
+      header('Cache-Control: must-revalidate');
+      header('Pragma: public');
+      header('Content-Length: '.filesize($file));
+
+      readfile($file);
+      exit;
+    }
   }
 
 

@@ -108,19 +108,18 @@
         </div>
 
         <div class="form-group">
-          <label for="" class="col-sm-3 control-label">Район Краснодара</label>
+          <label for="" class="col-sm-3 control-label">Адрес</label>
           <div class="col-sm-5">
             <select class="form-control" name="address">
               <option value="">По всей России</option>
-              <option value="">Краснодарский край</option>
-              <option value="" disabled>--ГОРОДА--</option>
-              <option value="1">Краснодар</option> <!--
               <option value="2">Краснодарский край</option>
+              <option value="1">Краснодар</option>
+              <option value="" disabled>--РАЙОНЫ ГОРОДА--</option>
               <option value="3">Западный</option>
               <option value="4">Карасунский</option>
               <option value="5">Прикубанский</option>
               <option value="6">Старокорсунская</option>
-              <option value="7">Центральный</option> -->
+              <option value="7">Центральный</option>
             </select>
           </div>
         </div>
@@ -152,7 +151,9 @@
           <div for="" class="col-sm-3">
           </div>
           <div class="col-sm-5">
-            <button type="submit" class="btn btn-primary" name="button">Добавить</button>
+            <button type="submit" class="btn btn-primary btn-block" name="button">Добавить объявление</button>
+            <a href="upload_csv.html" role="button" class="btn btn-default btn-block">Загрузить таблицу</a>
+            <a href="./php/work_with_csv.php?action=create" role="button" class="btn btn-default btn-block">Скачать таблицу</a>
           </div>
         </div>
 

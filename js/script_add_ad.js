@@ -14,7 +14,6 @@ $(document).ready(function () {
   $('#organization_send').on('input',function(e){
    if ($(this).val() == '') {
      $('#help_block_for_organization').hide('slow');
-//     $('#help_block_for_organization').text('');
      $('#organization_div').removeClass('has-success').removeClass('has-error');
    } else {
       $('#help_block_for_organization').show('slow');

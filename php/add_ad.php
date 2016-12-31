@@ -9,23 +9,12 @@
   $price = $_POST['price'];
   $organization = $_POST['organization'];
   $name = $_POST['name'];
-  $telephone_number = $_POST['telephone_number'];
+  /*убираю все кроме цифр, чтобы телефонные номера в БД хранились в одном формате*/
+  $telephone_number = preg_replace('/[^0-9]/', '', $_POST['telephone_number']);
   $address = $_POST['address'];
   $message = $_POST['message'];
   $text_ad = $_POST['text_ad'];
-/*
-  echo '$id_avito: '.$id_avito.'<br>';
-  echo '$date: '.$date.'<br>';
-  echo '$link: '.$link.'<br>';
-  echo '$header: '.$header.'<br>';
-  echo '$price: '.$price.'<br>';
-  echo '$organization: '.$organization.'<br>';
-  echo '$name: '.$name .'<br>';
-  echo '$telephone_number: '.$telephone_number.'<br>';
-  echo '$address: '.$address.'<br>';
-  echo '$message: '.$message.'<br>';
-  echo '$text_ad: '.$text_ad.'<br>';
-*/
+
   print_r($_POST);
 
   $mysqli = new mysqli($host, $user, $password, $db);

@@ -62,15 +62,16 @@
         $price = $data[5];
         $organization = $data[6];
         $name = $data[7];
-        $telephone_number = $data[8];
+        /*убираю все кроме цифр, чтобы телефонные номера в БД хранились в одном формате*/
+        $telephone_number = preg_replace('/[^0-9]/', '', $data[8]);
         $address = $data[9];
         $message = $data[10];
         $text_ad = $data[11];
 
         /*не у каждой позиции проставлена дата, потому что в оригинальной таблице есть
         объединенные ячейки с датой*/
-        if ($data[0]) {
-          $date = $data[0];
+        if ($data[0] != '') {
+          $date = str_replace('/', '.', $data[0]);
         }
 
         $sql = "SELECT * FROM `ads` WHERE `number` = $number";

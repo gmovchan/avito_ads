@@ -1,5 +1,15 @@
 $(document).ready(function () {
-  $("#telephone_number_send").mask("+7(999) 999-9999");
+  $("#telephone_number_send").mask("+7(999) 999-9999", {
+    completed: function () {
+      if ($('#telephone_number_send').val() == '') {
+        $('#help_block_for_telephone_number').hide('slow');
+        $('#telephone_number_div').removeClass('has-success').removeClass('has-error');
+      } else {
+        $('#help_block_for_telephone_number').show('slow');
+        check_on_repeat($('#telephone_number_send').val(), 'telephone_number');
+      }
+    }
+  });
 
   $('#help_block_for_telephone_number').hide();
   $('#help_block_for_organization').hide();
@@ -21,18 +31,17 @@ $(document).ready(function () {
    }
   })
 
-
+/*
   $('#telephone_number_send').on('input',function(e){
     if ($(this).val() == '') {
       $('#help_block_for_telephone_number').hide('slow');
-  //    $('#help_block_for_telephone_number').text('');
       $('#telephone_number_div').removeClass('has-success').removeClass('has-error');
     } else {
       $('#help_block_for_telephone_number').show('slow');
       check_on_repeat($(this).val(), 'telephone_number');
     }
   })
-
+*/
   //если цена не договрная, то переключатель делает активным поле для ввода цифр
   $('#radio_price_text').click('input',function(e){
      $('#price_text').prop('disabled', false);

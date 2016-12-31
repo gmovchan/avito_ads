@@ -30,6 +30,8 @@
 
     case 'telephone_number':
       $column = 'telephone_number';
+      /*убираю все кроме цифр, чтобы телефонные номера в БД хранились в одном формате*/
+      $data = preg_replace('/[^0-9]/', '', $data);
       break;
 
     case 'organization':

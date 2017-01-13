@@ -15,7 +15,7 @@
   $message = $_POST['message'];
   $text_ad = $_POST['text_ad'];
 
-  print_r($_POST);
+//  print_r($_POST);
 
   $mysqli = new mysqli($host, $user, $password, $db);
 
@@ -48,13 +48,15 @@
     echo "Ошибка: " . $mysqli->error . "<br>";
     $mysqli->close();
   } else {
-    echo "SUCCESS!";
+//    echo "SUCCESS ADD!";
   }
 
-  printf("%d строк вставлено.\n", $stmt->affected_rows);
+//  printf("%d строк вставлено.\n", $stmt->affected_rows);
 
   $stmt->close();
 
   $mysqli->close();
+  
+  header("Location: ../forwarding.html");
 
 ?>

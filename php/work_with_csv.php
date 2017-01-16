@@ -124,7 +124,7 @@
 
   function startCreate($mysqli) {
 
-    echo "Начинается генерация нового документа<br>";
+//    echo "Начинается генерация нового документа<br>";
 
     $headers_csv = array('Дата','№','№ объявления','Ссылка','Заголовок','Цена',
   'Название фирмы','Имя','Телефон','Адрес','ПИСЬМО да/нет','Текст');
@@ -150,6 +150,8 @@
       $avito_ads_from_db[] = $a;
     }
 
+//  var_dump($avito_ads_from_db);
+
   foreach ($avito_ads_from_db as $key => $value) {
 
     foreach ($value as $key1 => $value1) {
@@ -159,20 +161,24 @@
     }
   }
 
+//  var_dump($avito_ads_from_db);
+
     foreach ($avito_ads_from_db as $key) {
-      fputcsv ($handle, $key);
+      /*требуется установить разделить ';' потому что по ',' эксель на разбивает
+       по столбцам*/
+      fputcsv ($handle, $key, ';');
     }
 
     fclose($handle);
 
-    echo "Документ создан<br>";
+//    echo "Документ создан<br>";
 
     $mysqli->close();
     download_file_csv($file);
   }
 
   function download_file_csv($file) {
-    echo "Начинается скачивание файла...<br>";
+//    echo "Начинается скачивание файла...<br>";
     if (file_exists($file)) {
       if (ob_get_level()) {
         ob_end_clean();
